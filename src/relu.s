@@ -14,33 +14,33 @@
 # ==============================================================================
 relu:
     # Prologue
-    li t0, 1                
-    blt a1, t0, error_terminate  
+    li t0, 1
+    blt a1, t0, error_terminate
 
-    li t1, 0                
+    li t1, 0
 
 loop_start:
-    slli t2, t1, 2          
-    add t3, a0, t2         
-    lw t4, 0(t3)            
-    blt t4, x0, set_zero    
+    beq t1, a1, loop_end
+    slli t2, t1, 2
+    add t3, a0, t2
+    lw t4, 0(t3)
+    blt t4, x0, set_zero
 
-    sw t4, 0(t3)            
-    j loop_continue         
+    j loop_continue
 
 set_zero:
-    sw x0, 0(t3)            
+    sw x0, 0(t3)
 
 loop_continue:
-    addi t1, t1, 1          
-    blt t1, a1, loop_start 
+    addi t1, t1, 1
+    j loop_start
 
 loop_end:
-    # Epilogue
-    jr ra                   
+    jr ra
 
 error_terminate:
-    li a0, 36               
-    j exit
-    
-exit:
+    li a0, 36
+    j end
+
+end:
+    jr ra
