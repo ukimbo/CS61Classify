@@ -58,11 +58,11 @@ loop_end:
     jr ra
     
 error_36:
-    li a0, 36       # Load error code 36 into a0
-    j end           # Make system call to terminate program
+    li a0, 36       
+    j end
 
 error_37:
-    li a0, 37       # Load error code 37 into a0
+    li a0, 37       
     j end      
     
 end:
