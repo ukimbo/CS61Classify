@@ -31,18 +31,26 @@ dot:
     mv t3, a1 # array1 counter
     
 loop_start:
-    beq t1, a1, loop_end
-    lw t4, 0(t2)
-    lw t5, 0(t3)
-    add t0, t4, t5
+    beq t1, a2, loop_end #Check if loop has ended
+    lw t4, 0(t2) #Load current array value of array0
+    lw t5, 0(t3) #Load current array value of array1
     
+    mul t5, t5, t4 # Multiply the two array values
+    add t0, t0, t5 # Add them to the working sum
     
-    add t2, t2, a0
-    add t3, t3, a1
+    mv t6, a3 # x = stride0 
+    slli t6, t6, 2 # x = x * 4
     
-    addi t1, t1, 1
+    add t2, t2, t6 # Add stride counter to array pointer increment the word
+    
+    mv t6, a4 # y = stride1
+    slli t6, t6, 2 # y = y * 4
+    
+    add t3, t3, t6 # Add stride counter to array pointer increment the word
+    
+    addi t1, t1, 1 # Incremenet loop counter
     j loop_start
-
+    
 loop_end:
 
     # Epilogue
@@ -50,9 +58,15 @@ loop_end:
     jr ra
     
 error_36:
-    li a0, 36
+    li a0, 36       # Load error code 36 into a0
+    j end           # Make system call to terminate program
+
+error_37:
+    li a0, 37       # Load error code 37 into a0
+    j end      
+    
+end:
     ecall
     
-error_37:
-    li a0, 37
-    ecall
+
+    
