@@ -47,4 +47,6 @@ loop_end:
     
 error_terminate:
     li a0, 36               
-    ret   
+    j exit
+    
+exit:
