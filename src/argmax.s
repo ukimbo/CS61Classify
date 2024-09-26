@@ -21,7 +21,7 @@ argmax:
 
     li t1, 0 #loop counter
     li t2, 0 #currentMaxIndex
-    li t6, 0 #currentMax
+    lw t6, 0(a0) #currentMax
 
 loop_start:
     beq t1, a1, loop_end
@@ -42,6 +42,7 @@ loop_continue:
 
 loop_end:
     # Epilogue
+    mv a0, t2
     jr ra
     
 error_terminate:
