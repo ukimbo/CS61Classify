@@ -66,7 +66,7 @@ error_37:
     j end      
     
 end:
-    ecall
+    ret
     
 
     
