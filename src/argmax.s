@@ -16,38 +16,32 @@
 #     this function terminates the program with error code 36
 # =================================================================
 argmax:
-    # Prologue
-    li t0, 1                
-    blt a1, t0, error_terminate  
+    li t6, 1
+    blt a1, t6, handle_error
 
-    li t1, 0 #loop counter
-    li t2, 0 #currentMaxIndex
-    lw t6, 0(a0) #currentMax
+    lw t0, 0(a0)
 
+    li t1, 0
+    li t2, 1
 loop_start:
-    beq t1, a1, loop_end
-    slli t3, t1, 2          
-    add t4, a0, t3         
+    bge t2, a1, loop_end
+    slli t3, t2, 2
+
+    add t4, a0, t3
     lw t5, 0(t4)
-    blt t6, t5, max
-    
-    j loop_continue         
 
-max:
-    mv t6, t5
-    mv t2, t1 
+    ble t5, t0, loop_continue
 
+    mv t0, t5
+    mv t1, t2
 loop_continue:
-    addi t1, t1, 1          
-    blt t1, a1, loop_start 
 
+    addi t2, t2, 1
+    j loop_start
 loop_end:
-    # Epilogue
-    mv a0, t2
+    mv a0, t1
+    
     jr ra
-    
-error_terminate:
-    li a0, 36               
+handle_error:
+    li a0, 36
     j exit
-    
-exit:
