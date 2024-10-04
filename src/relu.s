@@ -13,31 +13,28 @@
 #     this function terminates the program with error code 36
 # ==============================================================================
 relu:
-    # Prologue
-    li t0, 1                
-    blt a1, t0, error_terminate  
-
-    li t1, 0                
+    li t0, 1             
+    blt a1, t0, error     
+    li t1, 0             
 
 loop_start:
-    slli t2, t1, 2          
-    add t3, a0, t2         
-    lw t4, 0(t3)            
-    blt t4, x0, set_zero    
+    bge t1, a1, loop_end  
 
-    sw t4, 0(t3)            
-    j loop_continue         
+    slli t2, t1, 2       
+    add t3, a0, t2        
+    lw t4, 0(t3)          
 
-set_zero:
-    sw x0, 0(t3)            
+    slt t5, t4, zero      
+    beq t5, zero, loop_continue 
+    sw zero, 0(t3)      
 
 loop_continue:
-    addi t1, t1, 1          
-    blt t1, a1, loop_start 
+    addi t1, t1, 1       
+    j loop_start
 
 loop_end:
-    # Epilogue
-    jr ra                   
+    jr ra               
 
-error_terminate:
-    li a0, 36               
+error:
+    li a0, 36          
+    j exit          
