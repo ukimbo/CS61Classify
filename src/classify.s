@@ -76,23 +76,23 @@ classify:
     
     mv s0, a0 # setting s0 to the m0, aka the return value of read_matrix
     
-    addi sp, sp, -4
-    lw t0, 0(s3) # load m0 rows pointer to s3
-    sw t0, 0(sp)
-    mv a0, s3 # move pointer to a0 to be the first argument in the free function
-    jal free # free m0 rows pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s3, t0 # load m0 cols int to s3
+    # addi sp, sp, -4
+    # lw t0, 0(s3) # load m0 rows pointer to s3
+    # sw t0, 0(sp)
+    # mv a0, s3 # move pointer to a0 to be the first argument in the free function
+    # jal free # free m0 rows pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s3, t0 # load m0 cols int to s3
     
-    addi sp, sp, -4
-    lw t0, 0(s4) # load m0 cols pointer to s4
-    sw t0, 0(sp)
-    mv a0, s4 # move pointer to a0 to be the first argument in the free function
-    jal free # free m0 cols pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s4, t0 # load m0 cols int to s4
+    # addi sp, sp, -4
+    # lw t0, 0(s4) # load m0 cols pointer to s4
+    # sw t0, 0(sp)
+    # mv a0, s4 # move pointer to a0 to be the first argument in the free function
+    # jal free # free m0 cols pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s4, t0 # load m0 cols int to s4
         
     lw a0, 0(sp)
     lw a1, 4(sp)
@@ -127,23 +127,23 @@ classify:
     
     mv s1, a0 # setting s1 to the m1, aka the return value of read_matrix
     
-    addi sp, sp, -4
-    lw t0, 0(s5) # load m1 rows pointer to s5
-    sw t0, 0(sp)
-    mv a0, s5 # move pointer to a0 to be the first argument in the free function
-    jal free # free m1 rows pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s5, t0 # load m1 cols int to s5
+    # addi sp, sp, -4
+    # lw t0, 0(s5) # load m1 rows pointer to s5
+    # sw t0, 0(sp)
+    # mv a0, s5 # move pointer to a0 to be the first argument in the free function
+    # jal free # free m1 rows pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s5, t0 # load m1 cols int to s5
     
-    addi sp, sp, -4
-    lw t0, 0(s6) # load m1 cols pointer to s6
-    sw t0, 0(sp)
-    mv a0, s6 # move pointer to a0 to be the first argument in the free function
-    jal free # free m1 cols pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s6, t0 # load m1 cols int to s6
+    # addi sp, sp, -4
+    # lw t0, 0(s6) # load m1 cols pointer to s6
+    # sw t0, 0(sp)
+    # mv a0, s6 # move pointer to a0 to be the first argument in the free function
+    # jal free # free m1 cols pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s6, t0 # load m1 cols int to s6
         
     lw a0, 0(sp)
     lw a1, 4(sp)
@@ -179,23 +179,23 @@ classify:
     
     mv s2, a0 # setting s2 to the input matrix, aka the return value of read_matrix
     
-    addi sp, sp, -4
-    lw t0, 0(s7) # load input rows pointer to s7
-    sw t0, 0(sp)
-    mv a0, s7 # move pointer to a0 to be the first argument in the free function
-    jal free # free input rows pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s7, t0 # load input rows int to s7
+    # addi sp, sp, -4
+    # lw t0, 0(s7) # load input rows pointer to s7
+    # sw t0, 0(sp)
+    # mv a0, s7 # move pointer to a0 to be the first argument in the free function
+    # jal free # free input rows pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s7, t0 # load input rows int to s7
     
-    addi sp, sp, -4
-    lw t0, 0(s8) # load input cols pointer to t0
-    sw t0, 0(sp)
-    mv a0, s8 # move pointer to a0 to be the first argument in the free function
-    jal free # free input cols pointer
-    lw t0, 0(sp)
-    addi sp, sp, 4
-    mv s8, t0 # load input cols int to s8
+    # addi sp, sp, -4
+    # lw t0, 0(s8) # load input cols pointer to t0
+    # sw t0, 0(sp)
+    # mv a0, s8 # move pointer to a0 to be the first argument in the free function
+    # jal free # free input cols pointer
+    # lw t0, 0(sp)
+    # addi sp, sp, 4
+    # mv s8, t0 # load input cols int to s8
     
     lw a0, 0(sp)
     lw a1, 4(sp)
@@ -214,7 +214,9 @@ classify:
     sw a5, 20(sp)
     sw a6, 24(sp)
     
-    mul a0, s3, s8
+    lw t0, 0(s3)
+    lw t1, 0(s8)
+    mul a0, t0, t1
     slli a0, a0, 2
     jal malloc 
     beq a0, x0, error_malloc
@@ -223,12 +225,12 @@ classify:
     mv a6, a0 # h 
     
     mv a0, s0 # move m0 array to first arg
-    mv a1, s3 # move m0 rows to second arg
-    mv a2, s4 # move m0 cols to third arg
+    lw a1, 0(s3) # move m0 rows to second arg
+    lw a2, 0(s4) # move m0 cols to third arg
     
     mv a3, s2 # move input array to fourth arg
-    mv a4, s7 # move input rows to fifth arg
-    mv a5, s8 # move input cols to sixth arg
+    lw a4, 0(s7) # move input rows to fifth arg
+    lw a5, 0(s8) # move input cols to sixth arg
     
     jal matmul
     
@@ -249,7 +251,9 @@ classify:
     sw a1, 4(sp)
     
     mv a0, s9 # move h to the first argument
-    mul a1, s3, s8 # length of h array and set it as second argument
+    lw t0, 0(s3)
+    lw t1, 0(s8)
+    mul a1, t0, t1 # length of h array and set it as second argument
     
     jal relu
     
@@ -269,7 +273,9 @@ classify:
     sw a5, 20(sp)
     sw a6, 24(sp)
     
-    mul a0, s3, s6
+    lw t0, 0(s3)
+    lw t1, 0(s6)
+    mul a0, t0, t1
     slli a0, a0, 2
     jal malloc 
     beq a0, x0, error_malloc
@@ -279,12 +285,12 @@ classify:
     
     
     mv a0, s1 # move m1 array to first arg
-    mv a1, s5 # move m1 rows to second arg
-    mv a2, s6 # move m1 cols to third arg
+    lw a1, 0(s5) # move m1 rows to second arg
+    lw a2, 0(s6) # move m1 cols to third arg
     
     mv a3, s9 # move h array to fourth arg
-    mv a4, s3 # move h rows to fifth arg
-    mv a5, s8 # move h cols to sixth arg
+    lw a4, 0(s3) # move h rows to fifth arg
+    lw a5, 0(s8) # move h cols to sixth arg
     
     jal matmul
     
@@ -308,8 +314,8 @@ classify:
     
     lw a0, 16(a1) # load filename string into first arg
     mv a1, s10 # load array into second arg
-    mv a2, s5 # load number of rows into fourth arg
-    mv a3, s8 # load number of cols into third arg
+    lw a2, 0(s5) # load number of rows into fourth arg
+    lw a3, 0(s8) # load number of cols into third arg
     
     jal write_matrix
     
@@ -328,7 +334,9 @@ classify:
     sw a2, 8(sp)
     
     mv a0, s10 # load o array into first arg
-    mul a1, s3, s6 # load length of array into second arg
+    lw t0, 0(s3)
+    lw t1, 0(s6)
+    mul a1, t0, t1 # load length of array into second arg
     
     jal argmax
     
@@ -359,6 +367,33 @@ classify:
 epilouge:
     addi sp, sp, -4
     sw a0, 0(sp)
+    
+    mv a0, s0
+    jal free
+    
+    mv a0, s1
+    jal free
+    
+    mv a0, s2
+    jal free
+    
+    mv a0, s3
+    jal free
+    
+    mv a0, s4
+    jal free
+    
+    mv a0, s5
+    jal free
+    
+    mv a0, s6
+    jal free
+    
+    mv a0, s7
+    jal free
+    
+    mv a0, s8
+    jal free
     
     mv a0, s9
     jal free
